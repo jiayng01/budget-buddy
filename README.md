@@ -1,56 +1,34 @@
-# Welcome to your Expo app 👋
+# Budget Buddy (Expo SDK 57)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile-first personal finance tracker built with Expo Router, React Native, and Supabase. Currency is SGD by default. This repository intentionally contains no sample transactions or seeded financial data.
 
-## Get started
+## Features included in this foundation
+- Expo Router tab navigation: Overview, Transactions, Add, Budgets, Analytics, Settings.
+- Add expenses, income/deposits, and transfers; edit merchant, date, amount, category, notes, and GST.
+- Receipt photo selection and secure server-side Gemini extraction through a Supabase Edge Function.
+- Supabase email/password authentication and per-user transaction, budget, and savings-goal data.
+- Overview totals, monthly transaction history, category filters, budget progress, savings goals, and six-month spending trend.
+- GST toggle defaults to 9%; it does not assume every transaction is GST-applicable.
+- No dummy transaction records are generated.
 
-1. Install dependencies
+## Requirements
+- Node.js LTS
+- Expo Go that supports SDK 57
+- A Supabase project for persistent accounts/data and receipt parsing
 
-   ```bash
-   npm install
-   ```
+## Setup
+1. Install dependencies: `npm install`
+2. Align Expo module versions to SDK 57: `npx expo install --fix` (then run `npx expo-doctor`).
+3. Copy `.env.example` to `.env`, then fill in the Supabase URL and anon/publishable key.
+4. In Supabase SQL Editor, run `supabase/migrations/0001_initial.sql`.
+5. Deploy the `parse-receipt` Edge Function and set its `GEMINI_API_KEY` secret. See `supabase/functions/parse-receipt/README.md`.
+6. Run `npx expo start` and scan the QR code with Expo Go.
 
-2. Start the app
+Without Supabase configuration, the app shows a setup/auth screen instead of inventing local financial records.
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Important notes
+- Never put `GEMINI_API_KEY` in `.env` variables prefixed with `EXPO_PUBLIC_` or in the mobile app. It belongs only in Supabase Edge Function secrets.
+- Receipt extraction is a draft: review and edit all AI-prefilled fields before saving.
+- Transfers are stored as a distinct transaction type and excluded from income/expense totals.
+- Recurring transaction scheduling and push notifications are not yet automated; recurrence metadata can be saved but requires a scheduled backend job for automatic generation.
+- Test on a throwaway Supabase project before adding real financial data.
