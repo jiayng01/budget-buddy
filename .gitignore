@@ -44,3 +44,4 @@ example
 
 .vscode/
 .env.local
+supabase/.temp
