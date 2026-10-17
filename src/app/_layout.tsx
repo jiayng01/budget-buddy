@@ -9,9 +9,17 @@ export default function RootLayout() {
     <AuthProvider>
       <FinanceProvider>
         <StatusBar style="dark" />
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: COLORS.bg } }}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: COLORS.bg },
+          }}
+        >
           <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="transaction/[id]" options={{ presentation: "modal" }} />
+          <Stack.Screen
+            name="transaction/[id]"
+            options={{ presentation: "modal" }}
+          />
           <Stack.Screen name="auth" />
         </Stack>
       </FinanceProvider>

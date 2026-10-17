@@ -3,6 +3,7 @@
 A mobile-first personal finance tracker built with Expo Router, React Native, and Supabase. Currency is SGD by default. This repository intentionally contains no sample transactions or seeded financial data.
 
 ## Features included in this foundation
+
 - Expo Router tab navigation: Overview, Transactions, Add, Budgets, Analytics, Settings.
 - Add expenses, income/deposits, and transfers; edit merchant, date, amount, category, notes, and GST.
 - Receipt photo selection and secure server-side Gemini extraction through a Supabase Edge Function.
@@ -12,11 +13,13 @@ A mobile-first personal finance tracker built with Expo Router, React Native, an
 - No dummy transaction records are generated.
 
 ## Requirements
+
 - Node.js LTS
 - Expo Go that supports SDK 57
 - A Supabase project for persistent accounts/data and receipt parsing
 
 ## Setup
+
 1. Install dependencies: `npm install`
 2. Align Expo module versions to SDK 57: `npx expo install --fix` (then run `npx expo-doctor`).
 3. Copy `.env.example` to `.env`, then fill in the Supabase URL and anon/publishable key.
@@ -27,6 +30,7 @@ A mobile-first personal finance tracker built with Expo Router, React Native, an
 Without Supabase configuration, the app shows a setup/auth screen instead of inventing local financial records.
 
 ## Important notes
+
 - Never put `GEMINI_API_KEY` in `.env` variables prefixed with `EXPO_PUBLIC_` or in the mobile app. It belongs only in Supabase Edge Function secrets.
 - Receipt extraction is a draft: review and edit all AI-prefilled fields before saving.
 - Transfers are stored as a distinct transaction type and excluded from income/expense totals.
