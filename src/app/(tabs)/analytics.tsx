@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { Text, View } from "react-native";
-import { Screen, Heading, Card, Stat, Pill, Empty } from "../../src/ui";
-import { COLORS } from "../../src/theme";
-import { useFinance } from "../../src/finance/FinanceProvider";
-import { money } from "../../src/lib/format";
+import { Screen, Heading, Card, Stat, Pill, Empty } from "../../ui";
+import { COLORS } from "../../theme";
+import { useFinance } from "../../finance/FinanceProvider";
+import { money } from "../../lib/format";
 
 export default function Analytics(){
  const {transactions}=useFinance();const [range,setRange]=useState("6 months");

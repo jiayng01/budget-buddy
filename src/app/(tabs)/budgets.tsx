@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Alert, Text, View } from "react-native";
-import { Screen, Heading, Card, Field, Button, Pill, Empty } from "../../src/ui";
-import { COLORS, CATEGORIES } from "../../src/theme";
-import { useFinance } from "../../src/finance/FinanceProvider";
-import { money } from "../../src/lib/format";
+import { Screen, Heading, Card, Field, Button, Pill, Empty } from "../../ui";
+import { COLORS, CATEGORIES } from "../../theme";
+import { useFinance } from "../../finance/FinanceProvider";
+import { money } from "../../lib/format";
 
 export default function Budgets(){
  const {budgets,transactions,goals,saveBudget,saveGoal,updateGoal}=useFinance();const [category,setCategory]=useState("Food & Drink");const [amount,setAmount]=useState("");const [goalName,setGoalName]=useState("");const [target,setTarget]=useState("");const [saved,setSaved]=useState("");

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Alert, KeyboardAvoidingView, Platform, Text, TextInput, View, Pressable } from "react-native";
 import { useRouter } from "expo-router";
-import { useAuth } from "../src/auth/AuthProvider";
-import { Button, Field, Screen, Card } from "../src/ui";
-import { COLORS } from "../src/theme";
+import { useAuth } from "../auth/AuthProvider";
+import { Button, Field, Screen, Card } from "../ui";
+import { COLORS } from "../theme";
 
 export default function AuthScreen() {
   const { signIn, signUp, configured, session } = useAuth();

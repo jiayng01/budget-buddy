@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Alert, Image, Pressable, Switch, Text, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
-import { Screen, Heading, Card, Field, Button, Pill } from "../../src/ui";
-import { COLORS, CATEGORIES, type TransactionType } from "../../src/theme";
-import { useFinance } from "../../src/finance/FinanceProvider";
-import { supabase } from "../../src/lib/supabase";
+import { Screen, Heading, Card, Field, Button, Pill } from "../../ui";
+import { COLORS, CATEGORIES, type TransactionType } from "../../theme";
+import { useFinance } from "../../finance/FinanceProvider";
+import { supabase } from "../../lib/supabase";
 
 export default function AddTransaction(){
  const {saveTransaction}=useFinance();const router=useRouter();

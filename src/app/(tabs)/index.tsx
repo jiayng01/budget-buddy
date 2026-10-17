@@ -1,11 +1,11 @@
-import { useMemo } from "react";
-import { Text, View, Pressable } from "react-native";
-import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { Screen, Heading, Card, Stat, Empty, Loading, Button } from "../../src/ui";
-import { COLORS } from "../../src/theme";
-import { useFinance } from "../../src/finance/FinanceProvider";
-import { money, dateLabel } from "../../src/lib/format";
+import { useRouter } from "expo-router";
+import { useMemo } from "react";
+import { Pressable, Text, View } from "react-native";
+import { useFinance } from "../../finance/FinanceProvider";
+import { dateLabel, money } from "../../lib/format";
+import { COLORS } from "../../theme";
+import { Card, Empty, Heading, Loading, Screen, Stat } from "../../ui";
 
 export default function Overview(){
  const {transactions,loading}=useFinance();const router=useRouter();
@@ -31,7 +31,7 @@ export default function Overview(){
   <Card>
    <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}><Text style={{fontSize:17,fontWeight:"800",color:COLORS.ink}}>Recent transactions</Text><Pressable onPress={()=>router.push("/transactions")}><Text style={{fontWeight:"800",color:COLORS.green}}>See all</Text></Pressable></View>
    {loading?<Loading/>:transactions.length===0?<Empty title="A clean slate" body="Add your first expense, income or transfer to start building your financial picture."/>:transactions.slice(0,5).map(t=><Pressable key={t.id} onPress={()=>router.push({pathname:"/transaction/[id]",params:{id:t.id}})} style={{flexDirection:"row",alignItems:"center",gap:12,paddingVertical:10,borderBottomWidth:1,borderBottomColor:COLORS.line}}>
-    <View style={{width:42,height:42,borderRadius:14,backgroundColor:t.type==="income"?COLORS.greenLight:t.type==="transfer"?COLORS.pale:COLORS.amberLight,alignItems:"center",justifyContent:"center"}}><Ionicons name={t.type==="income"?"arrow-down-left":t.type==="transfer"?"swap-horizontal":"arrow-up-right"} size={19} color={t.type==="income"?COLORS.green:t.type==="transfer"?COLORS.navy:COLORS.amber}/></View>
+    <View style={{width:42,height:42,borderRadius:14,backgroundColor:t.type==="income"?COLORS.greenLight:t.type==="transfer"?COLORS.pale:COLORS.amberLight,alignItems:"center",justifyContent:"center"}}><Ionicons name={t.type==="income"?"arrow-down-left-box":t.type==="transfer"?"swap-horizontal":"arrow-up-right-box"} size={19} color={t.type==="income"?COLORS.green:t.type==="transfer"?COLORS.navy:COLORS.amber}/></View>
     <View style={{flex:1,gap:4}}><Text style={{fontWeight:"800",color:COLORS.ink}}>{t.merchant}</Text><Text style={{fontSize:12,color:COLORS.muted}}>{t.category} · {dateLabel(t.transaction_date)}</Text></View>
     <Text style={{fontWeight:"800",color:t.type==="income"?COLORS.green:COLORS.ink}}>{t.type==="income"?"+":t.type==="expense"?"−":""}{money(t.amount)}</Text>
    </Pressable>)}

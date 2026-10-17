@@ -2,10 +2,10 @@ import { useMemo, useState } from "react";
 import { Alert, Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { Screen, Heading, Card, Field, Pill, Empty, Loading } from "../../src/ui";
-import { COLORS } from "../../src/theme";
-import { useFinance } from "../../src/finance/FinanceProvider";
-import { money, dateLabel } from "../../src/lib/format";
+import { Screen, Heading, Card, Field, Pill, Empty, Loading } from "../../ui";
+import { COLORS } from "../../theme";
+import { useFinance } from "../../finance/FinanceProvider";
+import { money, dateLabel } from "../../lib/format";
 
 export default function Transactions(){
  const {transactions,loading}=useFinance();const router=useRouter();const [query,setQuery]=useState("");const [filter,setFilter]=useState("all");

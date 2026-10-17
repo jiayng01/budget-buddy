@@ -1,10 +1,10 @@
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Text, View } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { Screen, Heading, Card, Field, Button } from "../../src/ui";
-import { useFinance } from "../../src/finance/FinanceProvider";
-import { COLORS, CATEGORIES, type TransactionType } from "../../src/theme";
-import { money, dateLabel } from "../../src/lib/format";
+import { useFinance } from "../../finance/FinanceProvider";
+import { dateLabel, money } from "../../lib/format";
+import { CATEGORIES, COLORS } from "../../theme";
+import { Button, Card, Field, Heading, Screen } from "../../ui";
 
 export default function TransactionDetail(){
  const {id}=useLocalSearchParams<{id:string}>();const {transactions,saveTransaction,deleteTransaction}=useFinance();const router=useRouter();const t=transactions.find(x=>x.id===id);

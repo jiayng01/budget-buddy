@@ -1,8 +1,8 @@
 import { Alert, Text, View, Linking, Pressable } from "react-native";
-import { Screen, Heading, Card, Button } from "../../src/ui";
-import { COLORS } from "../../src/theme";
-import { useAuth } from "../../src/auth/AuthProvider";
-import { supabaseConfigured } from "../../src/lib/supabase";
+import { Screen, Heading, Card, Button } from "../../ui";
+import { COLORS } from "../../theme";
+import { useAuth } from "../../auth/AuthProvider";
+import { supabaseConfigured } from "../../lib/supabase";
 
 export default function Settings(){
  const {session,signOut}=useAuth();

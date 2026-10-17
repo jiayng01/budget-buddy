@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { COLORS } from "../../src/theme";
-import { useAuth } from "../../src/auth/AuthProvider";
+import { COLORS } from "../../theme";
+import { useAuth } from "../../auth/AuthProvider";
 import { Redirect } from "expo-router";
 
 const icons: Record<string, keyof typeof Ionicons.glyphMap> = {
