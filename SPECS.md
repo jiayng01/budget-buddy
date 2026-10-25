@@ -52,6 +52,7 @@ Each transaction must have an appropriate transaction type. Transfers must not b
 - Support filtering by category, transaction type (expense or deposit/income), and recurring status.
 - Support searching by merchant, transaction description or item name where available.
 - Allow sorting by date, amount and other useful fields.
+- Show a period summary for the current filters, including total inflow, total outflow and net cash flow. Use the same filtered transactions as the list and exclude internal transfers from inflow and outflow.
 - Clicking an existing transaction must open its editable transaction form, populated with its saved data.
 - After saving, editing or deleting a transaction, update all affected screens and calculations immediately.
 
@@ -310,7 +311,10 @@ Provide settings for:
 - Default receipt-storage location
 - Cloud-backup destination and status
 - Data export and backup
-- Relevant application preferences
+- Appearance preference (light or dark mode), persisted and applied consistently across screens.
+- Notification preference for budget alerts and reminders. Respect operating-system permission requirements and reflect actual delivery capability; do not expose an inert toggle or claim that a notification was delivered if it was not.
+- Region/locale preference, where supported, for date and number formatting, independent of the selected currency.
+- Access to privacy/security information, help/support guidance and application version information.
 
 Local storage and cloud backup must be implemented according to the actual platform's permissions and capabilities.
 
@@ -347,6 +351,8 @@ Use appropriate database transactions or equivalent safeguards when saving relat
 
 ## 10. Error Handling, Privacy and Security
 
+- Provide email/password account registration, sign-in and sign-out. Offer third-party sign-in only when the provider is explicitly configured.
+- Require authentication before accessing personal financial records and ensure each query and mutation is scoped to the signed-in user. Verify that one account cannot read or alter another account's records.
 - Keep API keys and credentials out of frontend code and source control.
 - Validate incoming data on the backend.
 - Avoid unnecessary collection or transmission of personal information.
@@ -383,32 +389,69 @@ Use automated tests where practical and provide a concise manual testing checkli
 
 ## 12. Implementation Workflow
 
-Build the application in milestones:
+Build the application incrementally. Follow the cycle strictly:
 
-Milestone 1: Project setup, navigation and screen structure.
+**Edit → Test → Commit → Edit → Test → Commit**
 
-Milestone 2: Data model, persistence and manual transaction CRUD.
+Do not begin the next cycle until the current changes have been tested, any failures resolved, and the Git commit completed successfully. Keep each cycle small enough to review and test independently.
 
-Milestone 3: Transaction itemisation, tax calculations and validation.
+### 12.1 Initial documentation and UI cleanup pass
 
-Milestone 4: Gemini receipt-image parsing and confirmation workflow.
+Before resuming larger feature work:
 
-Milestone 5: Budgets, category allocations, savings goals and recurring rules.
+- Update this specification to include any missing functionality identified in the existing Lovable prototype.
+- Perform a scoped UI cleanup of the existing Expo application, using the Lovable Budget Buddy project as a visual reference.
+- Prioritise shared styling, colours, typography, spacing, cards, buttons, visual hierarchy and bottom navigation.
+- Focus on high-impact, low-risk improvements to the existing screens rather than rebuilding the entire interface.
+- Do not attempt to reproduce every Lovable screen detail, interaction, animation or visual component in this pass.
+- Preserve existing authentication, transaction persistence, receipt parsing, navigation and other working functionality.
+- Do not introduce unrelated features, alter the database schema or rewrite working business logic as part of the visual cleanup.
+- Test the affected screens and confirm that existing functionality still works before committing.
 
-Milestone 6: Analytics, interactive charts and recommendations.
+This is a **limited cleanup phase, not a separate functional milestone**. Once the interface is sufficiently consistent and usable, resume the functional milestones below. Remaining UI refinements can be made later when they support usability or a feature being implemented.
 
-Milestone 7: Settings, receipt storage, export and cloud backup.
+### 12.2 Functional implementation milestones
 
-Milestone 8: Integration testing, bug fixes and documentation.
+**Milestone 1: Project setup, navigation and screen structure**
 
-At the end of each milestone:
-- Run the relevant tests.
-- Verify that existing functionality still works.
-- Summarise the files changed and features completed.
-- List known issues and remaining work.
-- Do not proceed if a critical failure prevents the current milestone from working.
+Establish the Expo project, navigation and core screens. This milestone is substantially complete. Preserve the working foundation and address remaining structural issues when necessary.
 
-Do not replace functioning features with placeholders to claim a milestone is complete.
+**Milestone 2: Data model, persistence and manual transaction CRUD**
+
+Complete reliable transaction creation, editing, deletion, retrieval and validation. Ensure saved fields are correctly restored when reopening a transaction. Verify that changes propagate to the relevant screens and that user records remain isolated.
+
+**Milestone 3: Transaction itemisation, tax calculations and validation**
+
+Implement the optional itemised-details workflow, editable line items, tax configuration, accurate totals, currency rounding and validation.
+
+**Milestone 4: Gemini receipt-image parsing and confirmation workflow**
+
+Complete receipt capture and upload, structured extraction, review and correction of extracted information, and appropriate receipt-image handling. Preserve manual entry when parsing fails.
+
+**Milestone 5: Budgets, savings goals and recurring transactions**
+
+Complete total and category budgets, historical budget views, savings-goal management, recurring schedules and the required allocation validations.
+
+**Milestone 6: Analytics, interactive charts and recommendations**
+
+Complete data-driven financial summaries, date-range filtering, interactive category and spending charts, historical comparisons and rule-based insights.
+
+**Milestone 7: Settings, receipt storage, export and cloud backup**
+
+Implement supported preferences, receipt storage, export and backup features, with truthful success and failure states.
+
+**Milestone 8: Integration testing, bug fixes and documentation**
+
+Run end-to-end acceptance tests, fix integration issues and document setup, known limitations and the manual testing checklist.
+
+### 12.3 Completion and testing rules
+
+- A screen rendering correctly does not mean its functionality is complete.
+- Do not use mock transactions, hardcoded financial totals or fake success states to claim completion.
+- Test the affected functionality and relevant existing flows after each change.
+- At the end of each milestone, summarise completed features, changed files, test results, known issues and remaining work.
+- Do not sign off a milestone while a critical failure prevents its required functionality from working.
+- Keep UI refinements separate from functional changes when practical, so each commit is easier to verify and reverse.
 
 ## 13. Initial Instruction
 
