@@ -4,7 +4,7 @@ import { Alert, Text, View } from "react-native";
 import { useFinance } from "../../finance/FinanceProvider";
 import { dateLabel, money } from "../../lib/format";
 import { CATEGORIES, COLORS } from "../../theme";
-import { Button, Card, Field, Heading, Screen } from "../../ui";
+import { Button, Card, Field, Heading, Pill, Screen } from "../../ui";
 
 export default function TransactionDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -24,7 +24,7 @@ export default function TransactionDetail() {
         <Text style={{ color: COLORS.muted }}>
           This record may have been deleted.
         </Text>
-        <Button title="Back to history" onPress={() => router.back()} />
+        <Button title="Back to transactions" onPress={() => router.back()} />
       </Screen>
     );
   return (
@@ -54,22 +54,12 @@ export default function TransactionDetail() {
         </Text>
         <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 7 }}>
           {CATEGORIES.map((c) => (
-            <Text
+            <Pill
               key={c}
+              label={c}
+              active={category === c}
               onPress={() => setCategory(c)}
-              style={{
-                paddingVertical: 8,
-                paddingHorizontal: 10,
-                borderRadius: 99,
-                overflow: "hidden",
-                backgroundColor: category === c ? COLORS.green : COLORS.pale,
-                color: category === c ? "white" : COLORS.ink,
-                fontSize: 12,
-                fontWeight: "700",
-              }}
-            >
-              {c}
-            </Text>
+            />
           ))}
         </View>
         <Field label="Notes" value={notes} onChangeText={setNotes} multiline />

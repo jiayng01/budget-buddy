@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Alert, Text, View } from "react-native";
-import { Screen, Heading, Card, Field, Button, Pill, Empty } from "../../ui";
-import { COLORS, CATEGORIES } from "../../theme";
 import { useFinance } from "../../finance/FinanceProvider";
 import { money } from "../../lib/format";
+import { CATEGORIES, COLORS } from "../../theme";
+import { Button, Card, Empty, Field, Heading, Pill, Screen } from "../../ui";
 
 export default function Budgets() {
   const { budgets, transactions, goals, saveBudget, saveGoal, updateGoal } =
@@ -12,7 +12,6 @@ export default function Budgets() {
   const [amount, setAmount] = useState("");
   const [goalName, setGoalName] = useState("");
   const [target, setTarget] = useState("");
-  const [saved, setSaved] = useState("");
   const expenses = transactions.filter((t) => t.type === "expense");
   const spendFor = (cat: string) =>
     expenses
@@ -20,13 +19,13 @@ export default function Budgets() {
         (t) =>
           t.category === cat &&
           t.transaction_date.slice(0, 7) ===
-            new Date().toISOString().slice(0, 7),
+          new Date().toISOString().slice(0, 7),
       )
       .reduce((s, t) => s + t.amount, 0);
   return (
     <Screen>
       <Heading
-        title="Budgets & goals"
+        title="Goals"
         subtitle="Set limits and track what you are saving for."
       />
       <Card>
@@ -69,7 +68,7 @@ export default function Budgets() {
       </Card>
       <Card>
         <Text style={{ fontSize: 17, fontWeight: "800", color: COLORS.ink }}>
-          This month's budgets
+          This month&apos;s budgets
         </Text>
         {budgets.length === 0 ? (
           <Empty

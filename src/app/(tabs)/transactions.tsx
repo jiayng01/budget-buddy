@@ -1,11 +1,11 @@
-import { useMemo, useState } from "react";
-import { Alert, Pressable, Text, View } from "react-native";
-import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { Screen, Heading, Card, Field, Pill, Empty, Loading } from "../../ui";
-import { COLORS } from "../../theme";
+import { useRouter } from "expo-router";
+import { useMemo, useState } from "react";
+import { Pressable, Text, View } from "react-native";
 import { useFinance } from "../../finance/FinanceProvider";
-import { money, dateLabel } from "../../lib/format";
+import { dateLabel, money } from "../../lib/format";
+import { COLORS } from "../../theme";
+import { Card, Empty, Field, Heading, Loading, Pill, Screen } from "../../ui";
 
 export default function Transactions() {
   const { transactions, loading } = useFinance();
@@ -23,12 +23,79 @@ export default function Transactions() {
       ),
     [transactions, filter, query],
   );
+  const totals = useMemo(() => {
+    const result = { inflow: 0, outflow: 0 };
+
+    for (const transaction of list) {
+      if (transaction.type === "income") {
+        result.inflow += Number(transaction.amount);
+      } else if (transaction.type === "expense") {
+        result.outflow += Number(transaction.amount);
+      }
+      // Transfers are deliberately excluded from both totals.
+    }
+
+    return {
+      ...result,
+      net: result.inflow - result.outflow,
+    };
+  }, [list]);
   return (
     <Screen>
       <Heading
         title="Transactions"
         subtitle={`${transactions.length} records`}
       />
+      <View style={{ flexDirection: "row", gap: 8 }}>
+        {[
+          {
+            label: "Inflow",
+            value: totals.inflow,
+            background: COLORS.greenLight,
+            foreground: COLORS.green,
+          },
+          {
+            label: "Outflow",
+            value: totals.outflow,
+            background: COLORS.redLight,
+            foreground: COLORS.red,
+          },
+          {
+            label: "Net",
+            value: totals.net,
+            background: COLORS.ink,
+            foreground: "#FFFFFF",
+          },
+        ].map((item) => (
+          <View
+            key={item.label}
+            style={{
+              flex: 1,
+              minWidth: 0,
+              gap: 6,
+              padding: 10,
+              backgroundColor: item.background,
+              borderWidth: 2,
+              borderColor: COLORS.border,
+            }}
+          >
+            <Text style={{ fontSize: 11, color: item.foreground }}>
+              {item.label}
+            </Text>
+            <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              style={{
+                fontSize: 15,
+                fontWeight: "800",
+                color: item.foreground,
+              }}
+            >
+              {money(item.value)}
+            </Text>
+          </View>
+        ))}
+      </View>
       <Field
         label="Search"
         value={query}

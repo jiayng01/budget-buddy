@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Alert, Image, Pressable, Switch, Text, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
-import { Screen, Heading, Card, Field, Button, Pill } from "../../ui";
-import { COLORS, CATEGORIES, type TransactionType } from "../../theme";
+import { useState } from "react";
+import { Alert, Image, Switch, Text, View } from "react-native";
 import { useFinance } from "../../finance/FinanceProvider";
 import { supabase } from "../../lib/supabase";
+import { CATEGORIES, COLORS, type TransactionType } from "../../theme";
+import { Button, Card, Field, Heading, Pill, Screen } from "../../ui";
 
 export default function AddTransaction() {
   const { saveTransaction } = useFinance();
@@ -66,7 +66,7 @@ export default function AddTransaction() {
       Alert.alert(
         "Could not parse receipt",
         e?.message ||
-          "Check that the parse-receipt Edge Function is deployed. You can still enter the details manually.",
+        "Check that the parse-receipt Edge Function is deployed. You can still enter the details manually.",
       );
     } finally {
       setBusy(false);

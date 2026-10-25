@@ -25,7 +25,7 @@ export function Screen({
     >
       {scroll ? (
         <ScrollView
-          contentContainerStyle={{ padding: 20, paddingBottom: 28, gap: 18 }}
+          contentContainerStyle={{ padding: 16, paddingBottom: 28, gap: 18 }}
           keyboardShouldPersistTaps="handled"
         >
           {children}
@@ -55,7 +55,14 @@ export function Heading({
       }}
     >
       <View style={{ flex: 1, gap: 4 }}>
-        <Text style={{ fontSize: 27, fontWeight: "800", color: COLORS.ink }}>
+        <Text
+          style={{
+            fontSize: 27,
+            fontWeight: "800",
+            color: COLORS.ink,
+            letterSpacing: -0.5,
+          }}
+        >
           {title}
         </Text>
         {subtitle ? (
@@ -78,10 +85,15 @@ export function Card({
       style={[
         {
           backgroundColor: COLORS.card,
-          borderRadius: 20,
+          borderRadius: 0,
           padding: 16,
-          borderWidth: 1,
-          borderColor: COLORS.line,
+          borderWidth: 2,
+          borderColor: COLORS.border,
+          shadowColor: "#000000",
+          shadowOffset: { width: 3, height: 3 },
+          shadowOpacity: 1,
+          shadowRadius: 0,
+          elevation: 3,
           gap: 12,
         },
         style,
@@ -107,20 +119,34 @@ export function Button({
       disabled={disabled}
       onPress={onPress}
       style={{
-        minHeight: 48,
-        paddingHorizontal: 16,
-        borderRadius: 14,
+        minHeight: 56,
+        paddingVertical: 14,
+        paddingHorizontal: 18,
+
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: secondary ? COLORS.greenLight : COLORS.green,
+
+        backgroundColor: secondary ? COLORS.card : COLORS.primary,
+        borderRadius: 0,
+        borderWidth: 2,
+        borderColor: COLORS.border,
+
+        shadowColor: "#000000",
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 1,
+        shadowRadius: 0,
+        elevation: 4,
+
         opacity: disabled ? 0.6 : 1,
       }}
     >
       <Text
         style={{
           fontWeight: "800",
-          color: secondary ? COLORS.green : "#FFFFFF",
-          fontSize: 15,
+          color: secondary ? COLORS.ink : "#FFFFFF",
+          fontSize: 16,
+          lineHeight: 20,
+          textAlign: "center",
         }}
       >
         {title}
@@ -139,13 +165,13 @@ export function Field({ label, ...props }: TextInputProps & { label: string }) {
         {...props}
         style={[
           {
-            borderWidth: 1,
-            borderColor: COLORS.line,
-            borderRadius: 13,
+            borderWidth: 2,
+            borderColor: COLORS.border,
+            borderRadius: 0,
             paddingHorizontal: 13,
             paddingVertical: 12,
             color: COLORS.ink,
-            backgroundColor: "#FBFCFA",
+            backgroundColor: COLORS.card,
             fontSize: 15,
             minHeight: 46,
           },
@@ -168,19 +194,19 @@ export function Pill({
     <Pressable
       onPress={onPress}
       style={{
-        borderRadius: 999,
-        paddingVertical: 9,
-        paddingHorizontal: 13,
-        backgroundColor: active ? COLORS.green : COLORS.card,
-        borderWidth: 1,
-        borderColor: active ? COLORS.green : COLORS.line,
+        borderRadius: 0,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        backgroundColor: active ? COLORS.primary : COLORS.card,
+        borderWidth: 2,
+        borderColor: COLORS.border,
       }}
     >
       <Text
         style={{
           fontWeight: "700",
           fontSize: 12,
-          color: active ? "#FFFFFF" : COLORS.muted,
+          color: active ? "#FFFFFF" : COLORS.ink,
         }}
       >
         {label}

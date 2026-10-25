@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { Text, View } from "react-native";
-import { Screen, Heading, Card, Stat, Pill, Empty } from "../../ui";
-import { COLORS } from "../../theme";
 import { useFinance } from "../../finance/FinanceProvider";
 import { money } from "../../lib/format";
+import { COLORS } from "../../theme";
+import { Card, Empty, Heading, Pill, Screen, Stat } from "../../ui";
 
 export default function Analytics() {
   const { transactions } = useFinance();
@@ -46,7 +46,7 @@ export default function Analytics() {
   const max = Math.max(1, ...data.map((d) => Math.max(d.income, d.expense)));
   return (
     <Screen>
-      <Heading title="Insights" subtitle="Understand where your money goes." />
+      <Heading title="Analytics" subtitle="Understand where your money goes." />
       <View style={{ flexDirection: "row", gap: 7 }}>
         {["3 months", "6 months", "12 months"].map((x) => (
           <Pill
@@ -111,7 +111,7 @@ export default function Analytics() {
                   height: 8,
                   width: `${(d.expense / max) * 100}%`,
                   backgroundColor: COLORS.red,
-                  borderRadius: 20,
+                  borderRadius: 0,
                   minWidth: d.expense ? 3 : 0,
                 }}
               />
@@ -120,7 +120,7 @@ export default function Analytics() {
                   height: 8,
                   width: `${(d.income / max) * 100}%`,
                   backgroundColor: COLORS.green,
-                  borderRadius: 20,
+                  borderRadius: 0,
                   minWidth: d.income ? 3 : 0,
                 }}
               />
@@ -157,7 +157,7 @@ export default function Analytics() {
                 style={{
                   height: 7,
                   backgroundColor: COLORS.pale,
-                  borderRadius: 99,
+                  borderRadius: 0,
                   overflow: "hidden",
                 }}
               >
